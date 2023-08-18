@@ -1,0 +1,44 @@
+#compdef datalogger
+
+autoload -U is-at-least
+
+_datalogger() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" \
+'*-p+[GPIO pin for DHT22 data connection]:PIN: ' \
+'*--pin=[GPIO pin for DHT22 data connection]:PIN: ' \
+'*-i+[Interval between consecutive measures in seconds]:INTERVAL: ' \
+'*--interval=[Interval between consecutive measures in seconds]:INTERVAL: ' \
+'*-d+[Output CSV directory]:DIRECTORY:_files' \
+'*--directory=[Output CSV directory]:DIRECTORY:_files' \
+'-f+[Output CSV filename format (see https://docs.rs/chrono/latest/chrono/format/strftime/index.html for valid specifiers)]:FORMAT: ' \
+'--format=[Output CSV filename format (see https://docs.rs/chrono/latest/chrono/format/strftime/index.html for valid specifiers)]:FORMAT: ' \
+'-h[Print help information]' \
+'--help[Print help information]' \
+'-V[Print version information]' \
+'--version[Print version information]' \
+'*-P[Print output as `<hum,temp>` to stdout (for use in unix pipeline)]' \
+'*--pipe[Print output as `<hum,temp>` to stdout (for use in unix pipeline)]' \
+'*--csv[Dumps data to CSV file (can be swapped at runtime signalling `datalogger` process with SIGUSR1)]' \
+'*-q[Mute standard output]' \
+'*--quiet[Mute standard output]' \
+&& ret=0
+}
+
+(( $+functions[_datalogger_commands] )) ||
+_datalogger_commands() {
+    local commands; commands=()
+    _describe -t commands 'datalogger commands' commands "$@"
+}
+
+_datalogger "$@"

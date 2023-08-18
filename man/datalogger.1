@@ -1,0 +1,53 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH sensor 1  "sensor 0.1.0" 
+.SH NAME
+sensor \- Humidity & Temperature CLI datalogger for DHT22 sensor on Raspberry Pi
+.SH SYNOPSIS
+\fBsensor\fR [\fB\-h\fR|\fB\-\-help\fR] [\fB\-V\fR|\fB\-\-version\fR] <\fB\-p\fR|\fB\-\-pin\fR> [\fB\-i\fR|\fB\-\-interval\fR] [\fB\-P\fR|\fB\-\-pipe\fR] [\fB\-d\fR|\fB\-\-directory\fR] [\fB\-f\fR|\fB\-\-format\fR] [\fB\-\-csv\fR] [\fB\-q\fR|\fB\-\-quiet\fR] 
+.SH DESCRIPTION
+Humidity & Temperature CLI datalogger for DHT22 sensor on Raspberry Pi
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help information
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version information
+.TP
+\fB\-p\fR, \fB\-\-pin\fR=\fIPIN\fR
+GPIO pin for DHT22 data connection
+.TP
+\fB\-i\fR, \fB\-\-interval\fR=\fIINTERVAL\fR [default: 120]
+Interval between consecutive measures in seconds
+.TP
+\fB\-P\fR, \fB\-\-pipe\fR=\fIPIPE\fR [default: false]
+Print output as `<hum,temp>` to stdout (for use in unix pipeline)
+.br
+
+.br
+[\fIpossible values: \fRtrue, false]
+.TP
+\fB\-d\fR, \fB\-\-directory\fR=\fIDIRECTORY\fR [default: ~]
+Output CSV directory
+.TP
+\fB\-f\fR, \fB\-\-format\fR=\fIFORMAT\fR [default: %Y%m%d]
+Output CSV filename format (see https://docs.rs/chrono/latest/chrono/format/strftime/index.html for valid specifiers)
+.TP
+\fB\-\-csv\fR=\fICSV\fR [default: false]
+Dumps data to CSV file (can be swapped at runtime signalling `datalogger` process with SIGUSR1)
+.br
+
+.br
+[\fIpossible values: \fRtrue, false]
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR=\fIQUIET\fR [default: false]
+Mute standard output
+.br
+
+.br
+[\fIpossible values: \fRtrue, false]
+.SH VERSION
+v0.1.0
+.SH AUTHORS
+Marco Radocchia <marco.radocchia@outlook.com>
